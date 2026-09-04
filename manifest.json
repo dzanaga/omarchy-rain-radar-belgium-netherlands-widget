@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.dzanaga.omarchy-rain-radar-belgium-netherlands-widget",
+  "name": "Omarchy Rain Radar Belgium Netherlands Widget",
+  "version": "1.0.0",
+  "author": "dzanaga",
+  "description": "Buienradar rain forecast for Belgium and the Netherlands",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Rain Radar Belgium & Netherlands",
+    "description": "Current rain and a smooth Buienradar forecast graph",
+    "category": "Info",
+    "defaultSection": "center",
+    "allowMultiple": false,
+    "defaults": {
+      "refreshMinutes": 5,
+      "latitude": "",
+      "longitude": "",
+      "locationName": ""
+    },
+    "schema": [
+      {
+        "key": "refreshMinutes",
+        "type": "number",
+        "label": "Refresh interval",
+        "description": "Minutes between Buienradar updates (minimum 5).",
+        "defaultValue": 5,
+        "min": 5,
+        "max": 60,
+        "step": 1
+      },
+      {
+        "key": "latitude",
+        "type": "string",
+        "label": "Latitude",
+        "description": "Optional override; otherwise uses the Omarchy Weather location or IP location.",
+        "defaultValue": ""
+      },
+      {
+        "key": "longitude",
+        "type": "string",
+        "label": "Longitude",
+        "description": "Optional override; otherwise uses the Omarchy Weather location or IP location.",
+        "defaultValue": ""
+      },
+      {
+        "key": "locationName",
+        "type": "string",
+        "label": "Location name",
+        "description": "Optional label shown above the graph.",
+        "defaultValue": ""
+      }
+    ]
+  }
+}
