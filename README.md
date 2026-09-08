@@ -2,6 +2,8 @@
 
 ![Rain radar popup preview](preview.png)
 
+## Introduction
+
 Winter is coming... and rain with it. Let's get our raincoats ready and keep an eye on this handy rain radar widget.
 
 An Omarchy Shell bar widget for Buienradar forecasts in Belgium and the
@@ -12,9 +14,6 @@ Netherlands. Click the widget to see the next 2 hours of rain in mm/h.
 Choose **Change location** (or press **C**) to open the map. Click a
 city or any point on the map, then choose **Use selected location**.  
 **Use automatic location** restores automatic lookup (IP based).
-
-The blue marker shows the automatic location. The orange marker shows the
-selected forecast location. Map choices persist across shell restarts.
 
 The forecast is provided by [Buienradar](https://www.buienradar.nl/) and is
 limited to Belgium and the Netherlands. Coordinates are sent to
