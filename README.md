@@ -3,9 +3,7 @@
 ![Rain radar popup preview](preview.png)
 
 An Omarchy Shell bar widget for Buienradar forecasts in Belgium and the
-Netherlands. Click the widget to see the next hour of rain in mm/h. The chart
-uses a shaded curve, a clear dry baseline, and a nonlinear scale that keeps
-drizzle visible without letting heavy rain dominate the graph.
+Netherlands. Click the widget to see the next 2 hours of rain in mm/h.
 
 ## Location
 
@@ -15,10 +13,8 @@ The widget can use:
 - the location from Omarchy Weather;
 - approximate IP geolocation.
 
-Choose **Change location** (or press **C**) to open the offline map. Click a
-city or any point on the map, then choose **Use selected location**. Arbitrary
-points are labeled with the nearest city and an **Area** suffix while keeping
-their exact coordinates. **Use automatic location** restores automatic lookup.
+Choose **Change location** (or press **C**) to open the map. Click a
+city or any point on the map, then choose **Use selected location**.  **Use automatic location** restores automatic lookup.
 
 The blue marker shows the automatic location. The orange marker shows the
 selected forecast location. Map choices persist across shell restarts.
@@ -32,6 +28,29 @@ limited to Belgium and the Netherlands. Coordinates are sent to
 ```bash
 omarchy plugin add https://github.com/dzanaga/omarchy-rain-radar-belgium-netherlands-widget.git --enable
 ```
+
+## Remove
+
+```bash
+omarchy plugin remove io.github.dzanaga.omarchy-rain-radar-belgium-netherlands-widget
+```
+
+To also remove the saved map choice, delete
+`~/.local/state/omarchy/settings/rain-radar-location.json`.
+
+## License and data
+
+The plugin code is licensed under [MIT](LICENSE). It requires the Omarchy
+Shell environment and `curl`, which is used to request forecasts from
+Buienradar and approximate IP location from the configured providers. The
+bundled map outlines are Natural Earth public-domain data; see
+[MAP-SOURCES.md](MAP-SOURCES.md).
+
+The plugin reads Omarchy Weather's location file and only writes its own
+`rain-radar-location.json` after the user explicitly saves a map selection.
+It does not modify Omarchy configuration or other plugin state.
+
+Marketplace approval confirms a listing, not the security of the plugin code.
 
 ## Development
 
