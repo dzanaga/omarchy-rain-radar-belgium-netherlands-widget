@@ -2,19 +2,16 @@
 
 ![Rain radar popup preview](preview.png)
 
+Winter is coming... and rain with it. Let's get our raincoats ready and keep an eye on this handy rain radar widget.
+
 An Omarchy Shell bar widget for Buienradar forecasts in Belgium and the
 Netherlands. Click the widget to see the next 2 hours of rain in mm/h.
 
 ## Location
 
-The widget can use:
-
-- coordinates entered in its settings;
-- the location from Omarchy Weather;
-- approximate IP geolocation.
-
 Choose **Change location** (or press **C**) to open the map. Click a
-city or any point on the map, then choose **Use selected location**.  **Use automatic location** restores automatic lookup.
+city or any point on the map, then choose **Use selected location**.  
+**Use automatic location** restores automatic lookup (IP based).
 
 The blue marker shows the automatic location. The orange marker shows the
 selected forecast location. Map choices persist across shell restarts.
@@ -50,7 +47,6 @@ The plugin reads Omarchy Weather's location file and only writes its own
 `rain-radar-location.json` after the user explicitly saves a map selection.
 It does not modify Omarchy configuration or other plugin state.
 
-Marketplace approval confirms a listing, not the security of the plugin code.
 
 ## Development
 
@@ -65,5 +61,3 @@ QT_QPA_PLATFORM=offscreen QT_QUICK_BACKEND=software \
 
 `bash tests/check-panel.sh` runs an additional temporary Quickshell preview
 with simulated forecasts. It does not modify the installed plugin.
-
-Map outlines are bundled from [Natural Earth](MAP-SOURCES.md).
