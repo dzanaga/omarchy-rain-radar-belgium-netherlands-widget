@@ -25,9 +25,9 @@ Rectangle {
     else if (event.key === Qt.Key_Up) latitude += 0.05
     else if (event.key === Qt.Key_Down) latitude -= 0.05
     else return
-    root.locationPicked({name: "Selected position",
-      latitude: Number(Math.max(MapModel.bounds.south, Math.min(MapModel.bounds.north, latitude)).toFixed(5)),
-      longitude: Number(Math.max(MapModel.bounds.west, Math.min(MapModel.bounds.east, longitude)).toFixed(5))})
+    root.locationPicked(MapModel.areaLocation(
+      Number(Math.max(MapModel.bounds.south, Math.min(MapModel.bounds.north, latitude)).toFixed(5)),
+      Number(Math.max(MapModel.bounds.west, Math.min(MapModel.bounds.east, longitude)).toFixed(5))))
     event.accepted = true
   }
 

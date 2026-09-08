@@ -21,6 +21,27 @@ test('clicks outside map bounds cannot create a location', () => {
   assert.equal(map.unproject(10, 10, 0, 0), null)
 })
 
+test('arbitrary points use the nearest mapped city without snapping coordinates', () => {
+  for (const city of map.cities) {
+    assert.deepEqual(map.areaLocation(city.latitude, city.longitude), {
+      name: city.name + ' Area', latitude: city.latitude, longitude: city.longitude
+    })
+  }
+  assert.deepEqual(map.areaLocation(51.1662, 4.4487), {
+    name: 'Antwerp Area', latitude: 51.1662, longitude: 4.4487
+  })
+  assert.equal(map.areaLocation(52.39, 4.92).name, 'Amsterdam Area')
+})
+
+test('legacy generic names gain an area label while explicit names stay intact', () => {
+  assert.deepEqual(map.namedLocation({name:'Selected position', latitude:51.1662, longitude:4.4487}), {
+    name:'Antwerp Area', latitude:51.1662, longitude:4.4487
+  })
+  const city = {name:'Antwerp', latitude:51.2194, longitude:4.4025}
+  assert.equal(map.namedLocation(city), city)
+  assert.equal(map.namedLocation(null), null)
+})
+
 test('saved selection rejects corrupt and out-of-coverage coordinates', () => {
   for (const text of ['', '{', 'null', '{}', '{"mode":"selected"}',
     '{"mode":"selected","location":{"latitude":90,"longitude":5}}',

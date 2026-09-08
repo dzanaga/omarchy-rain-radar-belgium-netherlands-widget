@@ -16,6 +16,8 @@ Click **Change location** in the popup (or press **C**) to open the Belgium and 
 
 The blue dot shows the automatic location, separately from the selected forecast position. Its label identifies whether it comes from Weather settings or approximate IP geolocation; it is not a GPS fix. If automatic lookup fails or falls outside the map, you can still choose a position manually. **Use automatic location** restores automatic positioning.
 
+Arbitrary map positions and keyboard adjustments are named after the nearest city in the map's city list, with an **Area** suffix (for example, **Antwerp Area**). Naming works offline and keeps the exact selected forecast coordinates. Clicking a city label keeps its plain city name. Previously saved selections named “Selected position” also display the area name automatically.
+
 Before a choice is saved in the picker, the widget uses, in order:
 
 1. latitude and longitude entered in the widget settings;

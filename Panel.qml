@@ -4,6 +4,7 @@ import Quickshell.Io
 import qs.Commons
 import qs.Ui
 import "Model.js" as Model
+import "MapModel.js" as MapModel
 
 Panel {
   id: root
@@ -86,6 +87,7 @@ Panel {
   }
 
   function useLocation(location) {
+    location = MapModel.namedLocation(location)
     if (Model.locationKey(activeLocation) !== Model.locationKey(location)) samples = []
     activeLocation = location
     if (!Model.inCoverage(location.latitude, location.longitude)) {

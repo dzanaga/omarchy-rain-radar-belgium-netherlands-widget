@@ -17,6 +17,9 @@ ShellRoot {
       test.ticks++
       if (test.ticks > 80) { console.error("Timeout phase " + test.phase); Qt.exit(1); return }
       if (test.phase === -1) {
+        panel.useLocation({name: "Selected position", latitude: 51.1662, longitude: 4.4487})
+        test.check(panel.activeLocation.name === "Antwerp Area", "legacy generic label becomes a city area")
+        test.check(panel.activeLocation.latitude === 51.1662 && panel.activeLocation.longitude === 4.4487, "area label preserves forecast coordinates")
         panel.weatherLocation = {name: "Brussels", latitude: 50.8503, longitude: 4.3517}
         panel.resolveLocation()
         test.phase = 0
@@ -49,7 +52,7 @@ ShellRoot {
         test.check(panel.activeLocation === panel.automaticLocation, "automatic position restored")
         panel.open()
         panel.beginLocationPicker()
-        panel.draftLocation = {name: "Amsterdam", latitude: 52.3676, longitude: 4.9041}
+        panel.draftLocation = {name: "Antwerp Area", latitude: 51.1662, longitude: 4.4487}
         test.phase++
         test.ticks = 0
       } else if (test.phase === 4 && test.ticks > 10) {

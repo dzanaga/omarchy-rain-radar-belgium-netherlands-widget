@@ -32,13 +32,33 @@ function project(latitude, longitude, width, height) {
     y: v.y + (bounds.north - latitude) * v.scale }
 }
 
+function areaLocation(latitude, longitude) {
+  var nearest = cities[0], minimum = Infinity
+  var radians = Math.PI / 180
+  for (var i = 0; i < cities.length; i++) {
+    var city = cities[i]
+    // Haversine distance ranks nearby cities without distorting longitude.
+    var dLat = (city.latitude - latitude) * radians
+    var dLon = (city.longitude - longitude) * radians
+    var distance = Math.pow(Math.sin(dLat / 2), 2)
+      + Math.cos(latitude * radians) * Math.cos(city.latitude * radians) * Math.pow(Math.sin(dLon / 2), 2)
+    if (distance < minimum) { minimum = distance; nearest = city }
+  }
+  return { name: nearest.name + " Area", latitude: latitude, longitude: longitude }
+}
+
+function namedLocation(location) {
+  if (location && location.name === "Selected position") return areaLocation(location.latitude, location.longitude)
+  return location
+}
+
 function unproject(x, y, width, height) {
   var v = viewport(width, height)
   if (v.scale <= 0) return null
   var latitude = bounds.north - (y - v.y) / v.scale
   var longitude = bounds.west + (x - v.x) / (longitudeScale * v.scale)
   if (latitude < bounds.south || latitude > bounds.north || longitude < bounds.west || longitude > bounds.east) return null
-  return { name: "Selected position", latitude: Number(latitude.toFixed(5)), longitude: Number(longitude.toFixed(5)) }
+  return areaLocation(Number(latitude.toFixed(5)), Number(longitude.toFixed(5)))
 }
 
-if (typeof module !== "undefined") module.exports = { bounds: bounds, cities: cities, project: project, unproject: unproject }
+if (typeof module !== "undefined") module.exports = { bounds: bounds, cities: cities, project: project, unproject: unproject, areaLocation: areaLocation, namedLocation: namedLocation }

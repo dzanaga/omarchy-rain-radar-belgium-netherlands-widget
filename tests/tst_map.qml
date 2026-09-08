@@ -21,6 +21,7 @@ Item {
       var expected = MapModel.unproject(x, y, map.width, map.height)
       mouseClick(map, x, y)
       compare(picks.count, 1)
+      compare(map.selectedLocation.name, expected.name)
       fuzzyCompare(map.selectedLocation.latitude, expected.latitude, 0.00001)
       fuzzyCompare(map.selectedLocation.longitude, expected.longitude, 0.00001)
     }
@@ -43,6 +44,7 @@ Item {
       compare(picks.count, 1)
       fuzzyCompare(map.selectedLocation.longitude, 4.4017, 0.00001)
       fuzzyCompare(map.selectedLocation.latitude, 50.8503, 0.00001)
+      compare(map.selectedLocation.name, "Brussels Area")
     }
   }
 }
