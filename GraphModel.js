@@ -1,11 +1,10 @@
-// A fixed, bounded scale: 1 mm/h is halfway up, 10 mm/h is about 76%.
-// The square root opens up light rain; saturation compresses extreme showers
-// without changing the scale when a new forecast arrives. Zero remains zero.
+// A fixed, bounded scale with a gentler, almost linear response near zero.
+// 1 mm/h is one third up, 2.5 mm/h is 56%, and 10 mm/h is 83%.
+// The 2 mm/h knee compresses heavy showers without amplifying tiny changes.
 function heightFraction(mm) {
   var value = Number(mm)
   if (!isFinite(value) || value <= 0) return 0
-  var root = Math.sqrt(value)
-  return root / (1 + root)
+  return value / (2 + value)
 }
 
 function yFor(mm, top, bottom) {

@@ -5,7 +5,7 @@ const graph = require('../GraphModel.js')
 test('dry is exactly zero; increasing rain stays on a fixed, bounded scale', () => {
   assert.equal(graph.heightFraction(0), 0)
   assert.equal(graph.yFor(0, 10, 210), 210)
-  assert.equal(graph.heightFraction(1), 0.5)
+  assert.equal(graph.heightFraction(1), 1 / 3)
   let previous = 0
   for (const mm of [0.001, 0.01, 0.1, 0.5, 1, 2.5, 10, 50, 100, 1000, 40000]) {
     const height = graph.heightFraction(mm)
@@ -16,8 +16,15 @@ test('dry is exactly zero; increasing rain stays on a fixed, bounded scale', () 
 })
 
 test('light rain has more visual separation than heavy versus very heavy', () => {
-  assert.ok(graph.heightFraction(0.1) > 0.2)
+  assert.ok(graph.heightFraction(0.1) < 0.1)
   assert.ok(graph.heightFraction(1) - graph.heightFraction(0.1) > graph.heightFraction(50) - graph.heightFraction(10))
+})
+
+test('small changes near zero stay proportional instead of being amplified', () => {
+  const firstStep = graph.heightFraction(0.05)
+  const secondStep = graph.heightFraction(0.1) - graph.heightFraction(0.05)
+  assert.ok(secondStep / firstStep > 0.9)
+  assert.ok(graph.heightFraction(0.21) - graph.heightFraction(0.2) < 0.005)
 })
 
 test('smooth interpolation stays within neighboring samples, including dry intervals and spikes', () => {
