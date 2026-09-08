@@ -79,6 +79,25 @@ function inCoverage(latitude, longitude) {
   return lat !== null && lon !== null && lat >= 49.3 && lat <= 54.0 && lon >= 2.0 && lon <= 7.8
 }
 
+function locationKey(location) {
+  return location ? location.latitude + "," + location.longitude : ""
+}
+
+function parseSelection(raw) {
+  try {
+    var state = JSON.parse(raw)
+    if (state.mode === "automatic") return { mode: "automatic", settingsKey: state.settingsKey }
+    var location = parseWeatherLocation(JSON.stringify(state.location))
+    if (state.mode !== "selected" || !location || !inCoverage(location.latitude, location.longitude)) return null
+    return { mode: "selected", location: location, settingsKey: state.settingsKey }
+  } catch (e) { return null }
+}
+
+function forecastLocation(selection, configured, automatic) {
+  if (selection) return selection.mode === "selected" ? selection.location : automatic
+  return configured || automatic
+}
+
 if (typeof module !== "undefined") module.exports = {
   finiteNumber: finiteNumber,
   parseWeatherLocation: parseWeatherLocation,
@@ -87,5 +106,8 @@ if (typeof module !== "undefined") module.exports = {
   parseRainText: parseRainText,
   intensity: intensity,
   formatMm: formatMm,
-  inCoverage: inCoverage
+  inCoverage: inCoverage,
+  locationKey: locationKey,
+  parseSelection: parseSelection,
+  forecastLocation: forecastLocation
 }

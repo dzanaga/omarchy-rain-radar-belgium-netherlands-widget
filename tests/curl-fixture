@@ -1,0 +1,12 @@
+#!/bin/bash
+case "${@: -1}" in
+  *getrr.php*)
+    sleep 0.3
+    if [[ ${@: -1} == *lat=52* ]]; then
+      printf '150|12:00\n155|12:05\n'
+    else
+      printf '000|12:00\n000|12:05\n'
+    fi
+    ;;
+  *) printf '{"city":"Brussels","latitude":50.8503,"longitude":4.3517}\n' ;;
+esac
